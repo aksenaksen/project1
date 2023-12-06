@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.work2.mapper.HealthMapper">
+    <select id="getTime" resultType="string">
+        select sysdate()
+    </select>
+    <select id="findById" parameterType="string" resultType="LoginUserDTO">
+        SELECT * FROM USER WHERE username = #{username}
+    </select>
+    <select id="findById_PW" parameterType="loginDTO" resultType="LoginUserDTO">
+        SELECT * FROM USER WHERE username = #{username} and password=SHA2(#{password},256)
+    </select>
+    <select id="selectAll" parameterType="string" resultType="HealthInfoDTO">
+        SELECT * FROM HEALTHINFO WHERE username=#{username}
+    </select>
+    <select id="selectAllDate" parameterType="HealthInfoDTO" resultType="HealthInfoDTO" >
+        SELECT * FROM HEALTHINFO WHERE username=#{username} and date = #{date}
+    </select>
+    <update id="update" parameterType="HealthInfoDTO">
+        UPDATE HEALTHINFO SET HEALTHTYPE=#{HEALTHTYPE},weight=#{weight},count=#{count} WHERE hid= #{hid}
+    </update>
+    <insert id="Insert" parameterType="HealthInfoDTO">
+        insert into HEALTHINFO (username,HEALTHTYPE,weight,count,Date) values (#{username},#{HEALTHTYPE},#{weight},#{count},#{SqlDate})
+    </insert>
+    <delete id="delete" parameterType="_int">
+        DELETE FROM HEALTHINFO WHERE hid = #{hid}
+    </delete>
+    <insert id="updateBody" parameterType="BodyDTO">
+        INSERT INTO CHANGE_BODY (username,date,weight,fat,muscle_mass) values (#{username},#{date},#{weight},#{fat},#{muscle_mass})
+    </insert>
+    <update id="updateUser" parameterType="LoginDTO">
+        UPDATE USER SET weight=#{weight},fat=#{fat},muscle_mass=#{muscle_mass} WHERE username= #{username}
+    </update>
+    <update id="updateBodyFromUser" parameterType="BodyDTO">
+        UPDATE CHANGE_BODY SET weight=#{weight}, fat=#{fat} ,muscle_mass=#{muscle_mass} WHERE date=#{date} and username=#{username}
+    </update>
+    <select id="selectAllBody" parameterType="string" resultType="BodyDTO">
+        SELECT * FROM CHANGE_BODY WHERE username=#{username}
+    </select>
+    <select id="last" parameterType="string" resultType="HealthInfoDTO">
+        SELECT * FROM HEALTHINFO WHERE username=#{username} order by date DESC LIMIT 1
+    </select>
+    <insert id="register" parameterType="LoginUserDTO">
+        INSERT INTO USER (username, password, weight, fat, muscle_mass, height)
+        VALUES (#{username}, SHA2(#{password}, 256), #{weight}, #{fat}, #{muscle_mass}, #{height});
+    </insert>
+</mapper>

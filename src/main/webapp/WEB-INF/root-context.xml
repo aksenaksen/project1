@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/JDBC"></property>
+        <property name="username" value="tmp"></property>
+        <property name="password" value="5470"></property>
+    </bean>
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg ref="hikariConfig"></constructor-arg>
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:/com/spring/work2/mapper/config/context-configuration.xml"></property>
+    </bean>
+<!--    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">-->
+<!--        <property name="host" value="smtp.naver.com"/>-->
+<!--        <property name="username" value="ans109905@naver.com"/>-->
+<!--        <property name="password" value="${spring.mail.password}"/>-->
+<!--        <property name="port" value="465"/>-->
+<!--        <property name="javaMailProperties">-->
+<!--            <bean class="java.util.Properties">-->
+<!--                <property name="mail.transport.protocol" value="smtp"/>-->
+<!--                <property name="mail."-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
+    <mybatis:scan base-package="com.spring.work2.mapper"></mybatis:scan>
+    <context:component-scan base-package="com.spring.work2.service"></context:component-scan>
+    <context:component-scan base-package="com.spring.work2.persistence"></context:component-scan>
+</beans>

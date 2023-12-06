@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.spring.work2.domain.loginDTO" alias="loginDTO"/>
+		<typeAlias type="com.spring.work2.domain.LoginUserDTO" alias="LoginUserDTO"/>
+		<typeAlias type="com.spring.work2.domain.HealthInfoList" alias="HealthInfoList"/>
+		<typeAlias type="com.spring.work2.domain.BodyDTO" alias="BodyDTO"/>
+		<typeAlias type="com.spring.work2.domain.HealthInfoDTO" alias="HealthInfoDTO"/>
+	</typeAliases>
+</configuration>
